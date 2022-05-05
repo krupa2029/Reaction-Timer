@@ -1,7 +1,8 @@
 <template>
  <h1>Let's see how fast you are!!</h1> 
  <button @click="startGame" :disabled="isPlaying">Play</button>
- <Block :delay="delay" v-if="isPlaying" />
+ <Block :delay="delay" v-if="isPlaying" @end="endGame" />
+ <p>Reaction time: {{score}}</p>
 </template>
 
 <script>
@@ -15,7 +16,8 @@ export default {
   data() {
     return {
       isPlaying: false,
-      delay: null
+      delay: null,
+      score: null
     }
   },
   methods: {
@@ -23,6 +25,10 @@ export default {
       this.delay = 2000 + Math.random() * 5000;
       this.isPlaying = true;
       console.log(this.delay);
+    },
+    endGame(reactionTime){
+      this.score = reactionTime
+      this.isPlaying = false
     }
   }
 }
